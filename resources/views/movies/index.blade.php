@@ -4,7 +4,9 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">All movies</h2>
-    <a href="{{ route('movies.create') }}" class="btn btn-primary">+ Add Movie</a>
+    @auth
+        <a href="{{ route('movies.create') }}" class="btn btn-primary">+ Add Movie</a>
+    @endauth
 </div>
 
 <form method="GET" action="{{ route('movies.index') }}" class="card card-body shadow-sm mb-4">
@@ -72,15 +74,18 @@
                     <td class="text-end">
                         <a class="btn btn-sm btn-outline-dark"
                            href="{{ route('movies.show', $movie) }}">View Details</a>
-                        <a href="{{ route('movies.edit', $movie) }}"
-                           class="btn btn-outline-primary btn-sm">Edit</a>
-                        <form action="{{ route('movies.destroy', $movie) }}" method="POST"
-                              class="d-inline"
-                              onsubmit="return confirm('Delete this record?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
+
+                        @auth
+                            <a href="{{ route('movies.edit', $movie) }}"
+                               class="btn btn-outline-primary btn-sm">Edit</a>
+                            <form action="{{ route('movies.destroy', $movie) }}" method="POST"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Delete this record?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        @endauth
                     </td>
                 </tr>
             @empty

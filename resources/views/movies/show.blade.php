@@ -33,7 +33,9 @@
 
     <div class="card-footer d-flex justify-content-between">
         <a href="{{ route('movies.index') }}" class="btn btn-outline-secondary btn-sm">&larr; Back to Movies List</a>
-        <a href="{{ route('movies.edit', $movie) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+        @auth
+            <a href="{{ route('movies.edit', $movie) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+        @endauth
     </div>
 </div>
 @endsection
